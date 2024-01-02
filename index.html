@@ -37,10 +37,20 @@
     }
 
     p {
-      color: #00008b; /* Medium gray paragraph color */
+      color: #555; /* Medium gray paragraph color */
       font-size: 18px;
       line-height: 1.5;
       margin-bottom: 30px;
+    }
+
+    .neuromorphic-input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
     }
 
     .neuromorphic-button {
@@ -59,29 +69,18 @@
       transform: scale(1.05);
       color: #fff; /* Maintain white font color on hover */
     }
-
-    /* Style for the name input field */
-    #userNameInput {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 20px;
-      box-sizing: border-box;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 16px;
-    }
   </style>
 
   <script>
     // Initialize Firebase with your project config
     const firebaseConfig = {
-    apiKey: "AIzaSyCHXkKpJARcp4yOHl85OPJW1pSjIG7cPf4",
-    authDomain: "data-64e03.firebaseapp.com",
-    projectId: "data-64e03",
-    storageBucket: "data-64e03.appspot.com",
-    messagingSenderId: "523816020657",
-    appId: "1:523816020657:web:d44938c3b1e1566f075090"
-  };
+  apiKey: "AIzaSyCHXkKpJARcp4yOHl85OPJW1pSjIG7cPf4",
+  authDomain: "data-64e03.firebaseapp.com",
+  projectId: "data-64e03",
+  storageBucket: "data-64e03.appspot.com",
+  messagingSenderId: "523816020657",
+  appId: "1:523816020657:web:d44938c3b1e1566f075090"
+};
 
     firebase.initializeApp(firebaseConfig);
   </script>
@@ -122,7 +121,7 @@
     <h1>Premium Neuromorphic UI</h1>
     <p>This is a premium example of a neuromorphic user interface. It incorporates subtle gradients, a refined color palette, and clean design principles.</p>
     <!-- Input field for the user's name -->
-    <input type="text" id="userNameInput" placeholder="Enter your name">
+    <input type="text" id="userNameInput" class="neuromorphic-input" placeholder="Enter your name">
     <button class="neuromorphic-button">Write a Review</button>
   </div>
 

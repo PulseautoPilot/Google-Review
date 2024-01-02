@@ -1,73 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome!</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium Neuromorphic UI</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f8f8f8; /* Light gray background */
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #00008b; /* Blue font color */
+    }
 
-        .neuromorphic-container {
-            background-color: #f0f0f0;
-            border: 1px solid #d9d9d9;
-            border-radius: 15px;
-            box-shadow: 10px 10px 20px #bcbcbc, -10px -10px 20px #ffffff;
-            padding: 30px;
-            text-align: center;
-        }
+    .neuromorphic-container {
+      background: linear-gradient(135deg, #e0e0e0, #f5f5f5); /* Gradient background */
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
 
-        .start-button {
-            background-color: ##e67e22;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 18px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+    h1 {
+      color: #00008b; /* Blue heading color */
+      margin-bottom: 20px;
+    }
 
-        .start-button:hover {
-            background-color: ##e77613;
+    p {
+      color: #555; /* Medium gray paragraph color */
+      font-size: 18px;
+      line-height: 1.5;
+      margin-bottom: 30px;
+    }
+
+    .neuromorphic-button {
+      background: linear-gradient(135deg, #fd7e14, #e56a0d); /* Orange gradient button background */
+      border: none;
+      border-radius: 10px;
+      padding: 15px 30px;
+      font-size: 16px;
+      color: #fff; /* White font color for the button */
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s, color 0.3s;
+    }
+
+    .neuromorphic-button:hover {
+      background: linear-gradient(135deg, #e56a0d, #c8560b); /* Darker orange gradient on hover */
+      transform: scale(1.05);
+      color: #fff; /* Maintain white font color on hover */
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelector('.neuromorphic-button').addEventListener('click', function() {
+        // Save user details in local storage (for demonstration purposes)
+        const userName = prompt('Enter your name:');
+        if (userName) {
+          const userDetails = {
+            name: userName,
+            timestamp: new Date().toLocaleString(),
+          };
+          localStorage.setItem('userDetails', JSON.stringify(userDetails));
+          alert('User details saved! Redirecting...');
+          document.querySelector('.neuromorphic-container').style.animation = 'fade-out 1s forwards';
+          setTimeout(function() {
+            window.location.href = 'https://g.page/r/Caf4Eqd4wUINEB0/review';
+          }, 1000);
         }
-    </style>
+      });
+    });
+  </script>
 </head>
 <body>
 
-<div class="neuromorphic-container">
-    <h1>Welcome to the Company Review section!</h1>
-    <h2>Please take a few minutes to share your thoughts about our company.</h2>
-    <button class="start-button" onclick="redirectToGoogleMaps()">Start</button>
-</div>
-
-<script>
-    function redirectToGoogleMaps() {
-        // Redirect to the specified Google Maps link
-        window.location.href = 'https://www.google.com/maps/place/Scymes+Services+Pvt.+Ltd./@19.1094577,72.8770663,17z/data=!3m2!4b1!5s0x3be7c814c0823ca5:0x333ceb0c09a20043!4m6!3m5!1s0x3be7c813bd827521:0xd42c178a712f8a7!8m2!3d19.1094526!4d72.8796412!16s%2Fg%2F11j86q18gz?entry=ttu';
-
-        // Wait for the redirect and then perform the search
-        setTimeout(searchForReview, 2000);
-    }
-
-    function searchForReview() {
-        // Search for the specified review element
-        var reviewElement = document.querySelector('.DVeyrd .fontTitleSmall');
-
-        // If the review element is found, trigger a click event
-        if (reviewElement) {
-            reviewElement.click();
-        }
-    }
-</script>
+  <div class="neuromorphic-container">
+    <h1>Premium Neuromorphic UI</h1>
+    <p>This is a premium example of a neuromorphic user interface. It incorporates subtle gradients, a refined color palette, and clean design principles.</p>
+    <button class="neuromorphic-button">Write a Review</button>
+  </div>
 
 </body>
 </html>

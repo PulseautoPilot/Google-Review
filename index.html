@@ -37,7 +37,7 @@
     }
 
     p {
-      color: #00008b; /* Medium gray paragraph color */
+      color: #555; /* Medium gray paragraph color */
       font-size: 18px;
       line-height: 1.5;
       margin-bottom: 30px;
@@ -61,57 +61,34 @@
     }
   </style>
 
- <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+  <script>
+    // Initialize Firebase with your project config
+   const firebaseConfig = {
+  apiKey: "AIzaSyCHXkKpJARcp4yOHl85OPJW1pSjIG7cPf4",
+  authDomain: "data-64e03.firebaseapp.com",
+  projectId: "data-64e03",
+  storageBucket: "data-64e03.appspot.com",
+  messagingSenderId: "523816020657",
+  appId: "1:523816020657:web:d44938c3b1e1566f075090"
+};
 
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyCHXkKpJARcp4yOHl85OPJW1pSjIG7cPf4",
-    authDomain: "data-64e03.firebaseapp.com",
-    projectId: "data-64e03",
-    storageBucket: "data-64e03.appspot.com",
-    messagingSenderId: "523816020657",
-    appId: "1:523816020657:web:d44938c3b1e1566f075090"
-  };
+    firebase.initializeApp(firebaseConfig);
+  </script>
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-</script>
-  
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       document.querySelector('.neuromorphic-button').addEventListener('click', function() {
-        // Prompt the user to enter their name
         const userName = prompt('Enter your name:');
         if (userName) {
-          // Check if the user is authenticated
-          if (firebase.auth().currentUser) {
-            // Get the current user's ID
-            const userId = firebase.auth().currentUser.uid;
+          // Save user details in Firebase Realtime Database
+          const database = firebase.database();
+          const userDetailsRef = database.ref('userDetails');
+          userDetailsRef.push({
+            name: userName,
+            timestamp: new Date().toLocaleString(),
+          });
 
-            // Save user details in Firebase Realtime Database
-            const database = firebase.database();
-            const userDetailsRef = database.ref('userDetails');
-
-            // Save user details under the user's ID
-            userDetailsRef.child(userId).set({
-              name: userName,
-              timestamp: new Date().toLocaleString(),
-            });
-
-            alert('User details saved! Redirecting...');
-
-            // Redirect to the review page
-            document.querySelector('.neuromorphic-container').style.animation = 'fade-out 1s forwards';
-            setTimeout(function() {
-              window.location.href = 'https://g.page/r/Caf4Eqd4wUINEB0/review';
-            }, 1000);
-          } else {
-            alert('User is not authenticated. Please sign in before leaving a review.');
-          }
+          alert('User details saved!');
         }
       });
     });

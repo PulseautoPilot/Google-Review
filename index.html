@@ -6,7 +6,6 @@
   <title>Premium Neuromorphic UI</title>
   <!-- Include Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js"></script>
 
   <style>
@@ -38,7 +37,7 @@
     }
 
     p {
-      color: #555; /* Medium gray paragraph color */
+      color: #00008b; /* Medium gray paragraph color */
       font-size: 18px;
       line-height: 1.5;
       margin-bottom: 30px;
@@ -61,47 +60,58 @@
       color: #fff; /* Maintain white font color on hover */
     }
   </style>
+
+ <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyCHXkKpJARcp4yOHl85OPJW1pSjIG7cPf4",
+    authDomain: "data-64e03.firebaseapp.com",
+    projectId: "data-64e03",
+    storageBucket: "data-64e03.appspot.com",
+    messagingSenderId: "523816020657",
+    appId: "1:523816020657:web:d44938c3b1e1566f075090"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+</script>
   
-  <script>
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyB9vipd2-A5UhFbtMjxPK_fjJuY11K7jh8",
-  authDomain: "review-ed096.firebaseapp.com",
-  projectId: "review-ed096",
-  storageBucket: "review-ed096.appspot.com",
-  messagingSenderId: "43304460451",
-  appId: "1:43304460451:web:3100538e35211268f99f16",
-  measurementId: "G-0D1B78L7F3"
-};  
-
-   firebase.initializeApp(firebaseConfig);
-  </script>
-
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       document.querySelector('.neuromorphic-button').addEventListener('click', function() {
+        // Prompt the user to enter their name
         const userName = prompt('Enter your name:');
         if (userName) {
-          // Save user details in Firebase Realtime Database
-          const database = firebase.database();
-          const userDetailsRef = database.ref('userDetails');
-          
-          // Get the current user's ID
-          const userId = firebase.auth().currentUser?.uid;
+          // Check if the user is authenticated
+          if (firebase.auth().currentUser) {
+            // Get the current user's ID
+            const userId = firebase.auth().currentUser.uid;
 
-          // Save user details under the user's ID
-          userDetailsRef.child(userId).set({
-            name: userName,
-            timestamp: new Date().toLocaleString(),
-          });
+            // Save user details in Firebase Realtime Database
+            const database = firebase.database();
+            const userDetailsRef = database.ref('userDetails');
 
-          alert('User details saved! Redirecting...');
+            // Save user details under the user's ID
+            userDetailsRef.child(userId).set({
+              name: userName,
+              timestamp: new Date().toLocaleString(),
+            });
 
-          // Redirect to the review page
-          document.querySelector('.neuromorphic-container').style.animation = 'fade-out 1s forwards';
-          setTimeout(function() {
-            window.location.href = 'https://g.page/r/Caf4Eqd4wUINEB0/review';
-          }, 1000);
+            alert('User details saved! Redirecting...');
+
+            // Redirect to the review page
+            document.querySelector('.neuromorphic-container').style.animation = 'fade-out 1s forwards';
+            setTimeout(function() {
+              window.location.href = 'https://g.page/r/Caf4Eqd4wUINEB0/review';
+            }, 1000);
+          } else {
+            alert('User is not authenticated. Please sign in before leaving a review.');
+          }
         }
       });
     });

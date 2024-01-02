@@ -82,7 +82,7 @@
   appId: "1:523816020657:web:d44938c3b1e1566f075090"
 };
 
-    firebase.initializeApp(firebaseConfig);
+   firebase.initializeApp(firebaseConfig);
   </script>
 
   <script>
@@ -92,22 +92,27 @@
 
       neuromorphicButton.addEventListener('click', function() {
         const userName = userNameInput.value.trim();
+        console.log('Entered Name:', userName);
+
         if (userName) {
-          // Save user details in Firebase Realtime Database
           const database = firebase.database();
           const userDetailsRef = database.ref('userDetails');
+
           userDetailsRef.push({
             name: userName,
             timestamp: new Date().toLocaleString(),
+          }).then(() => {
+            console.log('User details saved successfully.');
+
+            alert('User details saved! Redirecting...');
+            document.querySelector('.neuromorphic-container').style.animation = 'fade-out 1s forwards';
+
+            setTimeout(function() {
+              window.location.href = 'https://g.page/r/Caf4Eqd4wUINEB0/review';
+            }, 1000);
+          }).catch(error => {
+            console.error('Error saving user details:', error);
           });
-
-          alert('User details saved! Redirecting...');
-
-          // Redirect to the review page
-          document.querySelector('.neuromorphic-container').style.animation = 'fade-out 1s forwards';
-          setTimeout(function() {
-            window.location.href = 'https://g.page/r/Caf4Eqd4wUINEB0/review';
-          }, 1000);
         } else {
           alert('Please enter your name.');
         }
@@ -120,7 +125,6 @@
   <div class="neuromorphic-container">
     <h1>Premium Neuromorphic UI</h1>
     <p>This is a premium example of a neuromorphic user interface. It incorporates subtle gradients, a refined color palette, and clean design principles.</p>
-    <!-- Input field for the user's name -->
     <input type="text" id="userNameInput" class="neuromorphic-input" placeholder="Enter your name">
     <button class="neuromorphic-button">Write a Review</button>
   </div>

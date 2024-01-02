@@ -33,7 +33,7 @@
         }
 
         button {
-            background-color: #4caf50;
+            background-color: #FFA500;
             color: white;
             padding: 10px 20px;
             border: none;
@@ -44,49 +44,70 @@
 </head>
 <body>
     <div class="container">
-        <h2>Neuromorphic UI</h2>
+        <h2>Your Valueable Review !</h2>
         <form id="userForm">
             <input type="text" id="userName" placeholder="Your Name" required>
             <input type="email" id="userEmail" placeholder="Your Email" required>
-            <button type="button" onclick="saveDataAndRedirect()">Submit</button>
+            <button type="button" id="submitBtn">Submit</button>
         </form>
     </div>
+</div>
 
-    <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+    <script type="module" defer>
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-        // Firebase configuration
-     const firebaseConfig = {
-  apiKey: "AIzaSyCHXkKpJARcp4yOHl85OPJW1pSjIG7cPf4",
-  authDomain: "data-64e03.firebaseapp.com",
-  projectId: "data-64e03",
-  storageBucket: "data-64e03.appspot.com",
-  messagingSenderId: "523816020657",
-  appId: "1:523816020657:web:d44938c3b1e1566f075090"
-};
+        const firebaseConfig = {
+    apiKey: "AIzaSyAmsa8hJpkbxnrHfTdJ9APbfVRejYOQCGk",
+    authDomain: "test-5-ee035.firebaseapp.com",
+    databaseURL: "https://test-5-ee035-default-rtdb.firebaseio.com",
+    projectId: "test-5-ee035",
+    storageBucket: "test-5-ee035.appspot.com",
+    messagingSenderId: "760812072159",
+    appId: "1:760812072159:web:636167c11abd4768ffcd6a"
+  };
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
 
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.addEventListener('click', async () => {
+          try {
+            const userName = document.getElementById('userName').value;
+            const userEmail = document.getElementById('userEmail').value;
 
-        function saveDataAndRedirect() {
-            var userName = document.getElementById('userName').value;
-            var userEmail = document.getElementById('userEmail').value;
+            if (!userName || !userEmail) {
+              throw new Error("Please fill out all the required fields.");
+            }
 
-            // Save data to Firebase Realtime Database
-            var database = firebase.database();
-            var usersRef = database.ref('users');
-            var newUserRef = usersRef.push();
-            newUserRef.set({
-                name: userName,
-                email: userEmail
+            const sanitizedUsername = userName.trim();
+            const sanitizedUserEmail = userEmail.trim();
+
+            if (!(sanitizedUsername && /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(sanitizedUserEmail))) {
+              throw new Error("Invalid user credentials.");
+            }
+
+            const dbRef = ref(database, 'users/' + Date.now());
+            await set(dbRef, {
+              name: sanitizedUsername,
+              email: sanitizedUserEmail
             });
 
-            // Redirect to the specified URL
-            window.location.href = "https://g.page/r/Caf4Eqd4wUINEB0/review";
-        }
+            console.log("Data saved successfully!");
+
+            alert("Thank you for submitting your information!");
+
+            document.getElementById('userName').value = '';
+            document.getElementById('userEmail').value = '';
+
+            setTimeout(() => {
+              window.location.href = "https://g.page/r/Caf4Eqd4wUINEB0/review";
+            }, 2000);
+
+          } catch (err) {
+            console.error("Error:", err.message);
+            alert(`An error occurred: ${err.message}`);
+          }
+        });
     </script>
 </body>
 </html>
